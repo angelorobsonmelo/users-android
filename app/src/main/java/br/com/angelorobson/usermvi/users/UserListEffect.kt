@@ -6,4 +6,4 @@ object ObserverUsers : UserListEffect()
 
 object NavigateScanner : UserListEffect()
 
-data class NavigateToUserDetail(val id: String) : UserListEffect()
+data class NavigateToUserDetail(val id: Int) : UserListEffect()

@@ -20,8 +20,9 @@ class UserListFragment : Fragment(R.layout.user_fragment) {
         val adapter = UserListAdapter()
         recyclerView.adapter = adapter
 
-        disposable = Observable.empty<UserListEvent>()
-            .compose(getViewModel(UserListViewModel::class).init(event = Initial))
+        disposable = Observable.mergeArray(
+            adapter.userClicks.map { UserClicked(it.id) }
+        ).compose(getViewModel(UserListViewModel::class).init(event = Initial))
             .subscribe { model ->
                 if (model.usersResult is UsersResult.UserLoaded) {
                     loadingIndicator.isVisible = model.usersResult.isLoading

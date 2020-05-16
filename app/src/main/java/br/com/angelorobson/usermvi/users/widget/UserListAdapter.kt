@@ -18,7 +18,9 @@ class UserListAdapter : ListAdapter<User, UserListViewHolder>(DiffUtilCallback()
 
     private val userClicksSubject = PublishSubject.create<Int>()
     val userClicks: Observable<User> = userClicksSubject
-        .map { position -> getItem(position) }
+        .map { position ->
+            getItem(position)
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         return UserListViewHolder(

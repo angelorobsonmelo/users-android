@@ -47,8 +47,11 @@ class UserListViewModel @Inject constructor(
                         UserLoaded(it)
                     }
             }
-
-        }.build()
+        }
+        .addConsumer(NavigateToUserDetail::class.java) { effect ->
+           print(effect)
+        }
+        .build()
 )
 
 fun <T> applyObservableAsync(): ObservableTransformer<T, T> {
