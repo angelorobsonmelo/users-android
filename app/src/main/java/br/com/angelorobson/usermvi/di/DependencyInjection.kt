@@ -40,7 +40,7 @@ interface ApplicationComponent {
 }
 
 @Singleton
-@Component(modules = [ApplicationModule::class, ApiModule::class, ViewModelModule::class])
+@Component(modules = [ApplicationModule::class, ViewModelModule::class, ApiModule::class])
 interface RealComponent : ApplicationComponent {
 
     @Component.Builder

@@ -4,7 +4,8 @@ import br.com.angelorobson.usermvi.MobiusVM
 import br.com.angelorobson.usermvi.model.UserRepository
 import br.com.angelorobson.usermvi.utils.Navigator
 import com.spotify.mobius.Next
-import com.spotify.mobius.Next.*
+import com.spotify.mobius.Next.dispatch
+import com.spotify.mobius.Next.next
 import com.spotify.mobius.Update
 import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.ObservableTransformer
@@ -49,7 +50,7 @@ class UserListViewModel @Inject constructor(
             }
         }
         .addConsumer(NavigateToUserDetail::class.java) { effect ->
-           print(effect)
+            navigator.to(UserListFragmentDirections.userDetail(effect.id.toLong()))
         }
         .build()
 )
