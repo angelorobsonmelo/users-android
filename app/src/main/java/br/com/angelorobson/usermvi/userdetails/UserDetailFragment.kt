@@ -31,4 +31,9 @@ class UserDetailFragment : Fragment(R.layout.user_detail_fragment) {
             }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
+    }
+
 }
