@@ -8,6 +8,8 @@ object Initial : UserListEvent()
 
 data class UserLoaded(val users: List<User>) : UserListEvent()
 
+object UserListEmpty : UserListEvent()
+
 data class UserClicked(val id: Int) : UserListEvent()
 
 object ErrorOccurred : UserListEvent()

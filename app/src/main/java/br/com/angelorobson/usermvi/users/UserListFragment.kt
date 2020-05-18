@@ -21,7 +21,7 @@ class UserListFragment : Fragment(R.layout.user_fragment) {
         val adapter = UserListAdapter()
         recyclerView.adapter = adapter
 
-        
+
         disposable = Observable.mergeArray(
             adapter.userClicks.map { UserClicked(it.id) }
         ).compose(getViewModel(UserListViewModel::class).init(event = Initial))
@@ -35,6 +35,10 @@ class UserListFragment : Fragment(R.layout.user_fragment) {
                 if (model.usersResult is UsersResult.Error) {
                     loadingIndicator.isVisible = false
                     tvError.isVisible = true
+                }
+                if (model.usersResult is UsersResult.Empty) {
+                    loadingIndicator.isVisible = false
+                    tvError.isVisible = false
                 }
             }
 

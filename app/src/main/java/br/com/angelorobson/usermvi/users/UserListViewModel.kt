@@ -8,7 +8,6 @@ import com.spotify.mobius.Next.dispatch
 import com.spotify.mobius.Next.next
 import com.spotify.mobius.Update
 import com.spotify.mobius.rx2.RxMobius
-import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,6 +31,9 @@ fun userListUpdate(
         ErrorOccurred -> next(
             model.copy(usersResult = UsersResult.Error)
         )
+        UserListEmpty -> next(
+            model.copy(usersResult = UsersResult.Empty)
+        )
     }
 }
 
@@ -50,6 +52,10 @@ class UserListViewModel @Inject constructor(
                     .compose(applyObservableAsync())
                     .retry(2)
                     .map {
+                        if (it.isEmpty()) {
+                            UserListEmpty as UserListEvent
+                        }
+
                         UserLoaded(it) as UserListEvent
                     }
                     .onErrorReturn {
