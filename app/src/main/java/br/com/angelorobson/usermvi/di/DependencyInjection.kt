@@ -3,8 +3,10 @@ package br.com.angelorobson.usermvi.di
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import br.com.angelorobson.usermvi.R
 import br.com.angelorobson.usermvi.model.UserService
+import br.com.angelorobson.usermvi.model.database.ApplicationDataBase
 import br.com.angelorobson.usermvi.userdetails.UserDetailViewModel
 import br.com.angelorobson.usermvi.users.UserListViewModel
 import br.com.angelorobson.usermvi.utils.ActivityService
@@ -41,7 +43,7 @@ interface ApplicationComponent {
 }
 
 @Singleton
-@Component(modules = [ApplicationModule::class, ViewModelModule::class, ApiModule::class])
+@Component(modules = [ApplicationModule::class, ViewModelModule::class, ApiModule::class, DataBaseModule::class])
 interface RealComponent : ApplicationComponent {
 
     @Component.Builder
@@ -131,4 +133,21 @@ object ApiModule {
     fun userService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
     }
+}
+
+@Module
+object DataBaseModule {
+
+    @Provides
+    @Singleton
+    @JvmStatic
+    fun applicationDatabase(context: Context): ApplicationDataBase {
+        return Room.databaseBuilder(context, ApplicationDataBase::class.java, "application_user")
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @JvmStatic
+    fun userDao(dataBase: ApplicationDataBase) = dataBase.userDao()
 }
