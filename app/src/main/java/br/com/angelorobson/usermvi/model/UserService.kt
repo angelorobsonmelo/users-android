@@ -11,6 +11,6 @@ interface UserService {
     @GET("users/")
     fun getUsers(): Observable<List<UserDto>>
 
-    @GET("https://jsonplaceholder.typicode.com/users/{id}")
+    @GET("users/{id}")
     fun getUserBy(@Path("id") id: Int): Single<UserDto>
 }

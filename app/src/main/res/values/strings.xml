@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UserMvi</string>
+    <string name="an_error_occurred">An error occurred</string>
+    <string name="reload">reload</string>
 </resources>
