@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.angelorobson.usermvi.R
 import br.com.angelorobson.usermvi.model.UserService
+import br.com.angelorobson.usermvi.userdetails.UserDetailViewModel
 import br.com.angelorobson.usermvi.users.UserListViewModel
 import br.com.angelorobson.usermvi.utils.ActivityService
 import br.com.angelorobson.usermvi.utils.Navigator
@@ -92,6 +93,10 @@ abstract class ViewModelModule {
     @ViewModelKey(UserListViewModel::class)
     abstract fun userListViewModel(listViewModel: UserListViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserDetailViewModel::class)
+    abstract fun userDetailViewModel(listViewModel: UserDetailViewModel): ViewModel
 
 }
 

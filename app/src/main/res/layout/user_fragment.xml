@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_to_refresh_layout_events"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:listitem="@layout/user_item"
             app:layout_constraintTop_toBottomOf="@id/loadingIndicator" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
