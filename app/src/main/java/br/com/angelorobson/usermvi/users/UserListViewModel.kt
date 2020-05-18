@@ -25,7 +25,8 @@ fun userListUpdate(
                     event.users,
                     isLoading = false
                 )
-            )
+            ),
+            setOf(SaveUsersLocally(event.users))
         )
         is UserClicked -> dispatch(setOf(NavigateToUserDetail(event.id)))
         ErrorOccurred -> next(
@@ -61,6 +62,14 @@ class UserListViewModel @Inject constructor(
                     .onErrorReturn {
                         ErrorOccurred
                     }
+            }
+        }
+        .addTransformer(SaveUsersLocally::class.java) { upstream ->
+            upstream.switchMap { event ->
+                userRepository.insert(event.users)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .toObservable<UserListEvent>()
             }
         }
         .addConsumer(NavigateToUserDetail::class.java) { effect ->

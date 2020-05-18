@@ -12,13 +12,20 @@ class UserRepository @Inject constructor(
     private val userDao: UserDao
 ) {
 
-    fun insert(userDto: UserDto): Completable {
-        return userDao.insert(userDto)
+    fun insert(users: List<User>): Completable {
+        val usersDto = users.map {
+            mapUserDto(it)
+        }
+        return userDao.insert(usersDto)
     }
 
     fun getFromDatabase(id: Int): Single<User> {
         return userDao.getUser(id)
             .map { mapUser(it) }
+    }
+
+    fun deleteAllFromDatabase(): Completable {
+        return userDao.deleteAll()
     }
 
     fun getUsersFromApi(): Observable<List<User>> {
@@ -39,5 +46,13 @@ fun mapUser(dto: UserDto): User {
         id = dto.id,
         name = dto.name,
         username = dto.username
+    )
+}
+
+fun mapUserDto(user: User): UserDto {
+    return UserDto(
+        id = user.id,
+        name = user.name,
+        username = user.username
     )
 }
