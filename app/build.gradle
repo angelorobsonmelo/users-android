@@ -109,4 +109,7 @@ dependencies {
     instrumentedImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
     instrumentedImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    testImplementation "io.mockk:mockk:$ioMockVersion"
+
 }

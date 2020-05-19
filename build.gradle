@@ -26,6 +26,7 @@ ext {
     fragmentVersion = '1.1.0'
     testingVersion = '1.2.0'
     mockWebServerVersion = '4.2.1'
+    ioMockVersion = '1.8.7'
 }
 
 allprojects {
