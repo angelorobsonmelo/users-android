@@ -1,24 +1,23 @@
 package br.com.angelorobson.usermvi.userdetails
 
-import android.app.Activity
+
 import android.content.res.Resources
 import android.os.Bundle
-import android.provider.Settings
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import br.com.angelorobson.usermvi.AndroidTestApplication
 import br.com.angelorobson.usermvi.R
 import br.com.angelorobson.usermvi.component
 import br.com.angelorobson.usermvi.di.TestComponent
-import br.com.angelorobson.usermvi.users.UserListFragment
 import br.com.angelorobson.usermvi.utils.FileUtils
 import br.com.angelorobson.usermvi.utils.TestIdlingResource
+
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Test
+
 
 class UserDetailsFragmentTest {
 
@@ -122,5 +121,6 @@ class UserDetailsFragmentTest {
 
         mockWebServer.close()
     }
+
 
 }
