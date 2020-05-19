@@ -47,7 +47,7 @@ class UserListUpdateTest {
                             usersResult = UsersResult.UserLoaded(users = users, isLoading = false)
                         )
                     ),
-                    hasNoEffects()
+                    hasEffects(SaveUsersLocally(users) as UserListEffect)
                 )
             )
     }
