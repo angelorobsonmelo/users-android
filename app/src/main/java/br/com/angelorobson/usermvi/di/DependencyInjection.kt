@@ -10,6 +10,7 @@ import br.com.angelorobson.usermvi.model.database.ApplicationDataBase
 import br.com.angelorobson.usermvi.userdetails.UserDetailViewModel
 import br.com.angelorobson.usermvi.users.UserListViewModel
 import br.com.angelorobson.usermvi.utils.ActivityService
+import br.com.angelorobson.usermvi.utils.IdlingResource
 import br.com.angelorobson.usermvi.utils.Navigator
 import dagger.*
 import dagger.multibindings.IntoMap
@@ -43,7 +44,7 @@ interface ApplicationComponent {
 }
 
 @Singleton
-@Component(modules = [ApplicationModule::class, ViewModelModule::class, ApiModule::class, DataBaseModule::class])
+@Component(modules = [ApplicationModule::class, ViewModelModule::class, ApiModule::class, DataBaseModule::class, RealModule::class])
 interface RealComponent : ApplicationComponent {
 
     @Component.Builder
@@ -138,6 +139,25 @@ object ApiModule {
 @Module
 object DataBaseModule {
 
+
+    @Provides
+    @Singleton
+    @JvmStatic
+    fun userDao(dataBase: ApplicationDataBase) = dataBase.userDao()
+}
+
+@Module
+object RealModule {
+
+
+    @Provides
+    @Singleton
+    @JvmStatic
+    fun idlingResource(): IdlingResource = object : IdlingResource {
+        override fun increment() {}
+        override fun decrement() {}
+    }
+
     @Provides
     @Singleton
     @JvmStatic
@@ -145,9 +165,4 @@ object DataBaseModule {
         return Room.databaseBuilder(context, ApplicationDataBase::class.java, "application_user")
             .build()
     }
-
-    @Provides
-    @Singleton
-    @JvmStatic
-    fun userDao(dataBase: ApplicationDataBase) = dataBase.userDao()
 }

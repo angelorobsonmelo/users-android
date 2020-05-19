@@ -2,6 +2,7 @@ package br.com.angelorobson.usermvi.users
 
 import br.com.angelorobson.usermvi.MobiusVM
 import br.com.angelorobson.usermvi.model.UserRepository
+import br.com.angelorobson.usermvi.utils.IdlingResource
 import br.com.angelorobson.usermvi.utils.Navigator
 import com.spotify.mobius.Next
 import com.spotify.mobius.Next.dispatch
@@ -41,7 +42,8 @@ fun userListUpdate(
 
 class UserListViewModel @Inject constructor(
     userRepository: UserRepository,
-    navigator: Navigator
+    navigator: Navigator,
+    idlingResource: IdlingResource
 ) : MobiusVM<UserListModel, UserListEvent, UserListEffect>(
     "UserViewModel",
     Update(::userListUpdate),
@@ -51,8 +53,8 @@ class UserListViewModel @Inject constructor(
             upstream.switchMap {
                 userRepository.getUsersFromApi()
                     .compose(applyObservableAsync())
-                    .retry(2)
                     .map {
+                        idlingResource.decrement()
                         if (it.isEmpty()) {
                             UserListEmpty as UserListEvent
                         }

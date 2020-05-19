@@ -10,7 +10,7 @@ import br.com.angelorobson.usermvi.di.ApplicationComponent
 import br.com.angelorobson.usermvi.di.DaggerRealComponent
 import kotlin.reflect.KClass
 
-class App : Application() {
+open class App : Application() {
 
     open val component: ApplicationComponent by lazy {
         DaggerRealComponent.builder()
