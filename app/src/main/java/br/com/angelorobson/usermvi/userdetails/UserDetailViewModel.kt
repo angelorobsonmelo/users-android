@@ -2,6 +2,7 @@ package br.com.angelorobson.usermvi.userdetails
 
 import br.com.angelorobson.usermvi.MobiusVM
 import br.com.angelorobson.usermvi.model.UserRepository
+import br.com.angelorobson.usermvi.utils.IdlingResource
 import com.spotify.mobius.Next
 import com.spotify.mobius.Next.next
 import com.spotify.mobius.Update
@@ -37,7 +38,8 @@ fun userDetailUpdate(
 }
 
 class UserDetailViewModel @Inject constructor(
-    userRepository: UserRepository
+    userRepository: UserRepository,
+    idlingResource: IdlingResource
 ) : MobiusVM<UserDetailModel, UserDetailEvent, UserDetailEffect>(
     "UserDetailViewModel",
     Update(::userDetailUpdate),
@@ -49,8 +51,8 @@ class UserDetailViewModel @Inject constructor(
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .toObservable()
-                    .retry(2)
                     .map { user ->
+                        idlingResource.decrement()
                         UserLoaded(user = user) as UserDetailEvent
                     }
                     .onErrorReturn {

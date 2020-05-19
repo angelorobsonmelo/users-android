@@ -19,11 +19,6 @@ class UserRepository @Inject constructor(
         return userDao.insert(usersDto)
     }
 
-    fun getFromDatabase(id: Int): Single<User> {
-        return userDao.getUser(id)
-            .map { mapUser(it) }
-    }
-
     fun deleteAllFromDatabase(): Completable {
         return userDao.deleteAll()
     }
@@ -38,6 +33,11 @@ class UserRepository @Inject constructor(
         return service.getUserBy(id).map {
             mapUser(it)
         }
+    }
+
+    fun getFromDatabase(id: Int): Single<User> {
+        return userDao.getUser(id)
+            .map { mapUser(it) }
     }
 }
 
