@@ -13,7 +13,7 @@ class AndroidTestApplication : App() {
     val userDtoSubject = PublishSubject.create<UserDto>()
     private val userDao: UserDao = object : UserDao() {
         override fun getUser(id: Int): Single<UserDto> {
-            return userDtoSubject.single(UserDto(id, "", ""))
+            return userDtoSubject.single(UserDto(id, "name", "username"))
         }
 
         override fun insert(photos: List<UserDto>): Completable {
