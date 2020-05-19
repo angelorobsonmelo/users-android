@@ -7,7 +7,7 @@ Application sample using the new MVI pattern (Model-View-Intent)
 * RxJava (RxKotlin)
 * Room database,
 * Retrofit, 
-* viewModels,
+* ViewModels,
 * Instrumentation testing with Espresso
 * jUnit testing business logic controllers.
 * Jetpack navigation
