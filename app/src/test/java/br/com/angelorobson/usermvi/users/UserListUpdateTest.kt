@@ -23,9 +23,9 @@ class UserListUpdateTest {
             .given(model)
             .whenEvent(Initial)
             .then(
-                assertThatNext(
+                assertThatNext<UserListModel, UserListEffect>(
                     hasNoModel(),
-                    hasEffects(ObserverUsers as UserListEffect)
+                    hasEffects(ObserverUsers)
                 )
             )
     }
@@ -41,13 +41,13 @@ class UserListUpdateTest {
             .given(model)
             .whenEvent(UserLoaded(users))
             .then(
-                assertThatNext(
+                assertThatNext<UserListModel, UserListEffect>(
                     hasModel(
                         model.copy(
                             usersResult = UsersResult.UserLoaded(users = users, isLoading = false)
                         )
                     ),
-                    hasEffects(SaveUsersLocally(users) as UserListEffect)
+                    hasEffects(SaveUsersLocally(users))
                 )
             )
     }
@@ -60,9 +60,9 @@ class UserListUpdateTest {
             .given(model)
             .whenEvent(UserClicked(userId))
             .then(
-                assertThatNext(
+                assertThatNext<UserListModel, UserListEffect>(
                     hasNoModel(),
-                    hasEffects(NavigateToUserDetail(userId) as UserListEffect)
+                    hasEffects(NavigateToUserDetail(userId))
                 )
             )
     }
@@ -74,7 +74,7 @@ class UserListUpdateTest {
             .given(model)
             .whenEvent(ErrorOccurred)
             .then(
-                assertThatNext(
+                assertThatNext<UserListModel, UserListEffect>(
                     hasModel(
                         model.copy(usersResult = UsersResult.Error)
                     ),
@@ -90,7 +90,7 @@ class UserListUpdateTest {
             .given(model)
             .whenEvent(UserListEmpty)
             .then(
-                assertThatNext(
+                assertThatNext<UserListModel, UserListEffect>(
                     hasModel(
                         model.copy(usersResult = UsersResult.Empty)
                     ),

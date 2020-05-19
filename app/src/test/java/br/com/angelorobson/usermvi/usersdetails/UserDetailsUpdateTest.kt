@@ -34,9 +34,9 @@ class UserDetailsUpdateTest {
             .given(model)
             .whenEvent(Initial(id))
             .then(
-                assertThatNext(
+                assertThatNext<UserDetailModel, UserDetailEffect>(
                     hasModel(model.copy(isLoading = true)),
-                    hasEffects(LoadUser(id) as UserDetailEffect)
+                    hasEffects(LoadUser(id))
                 )
             )
     }
@@ -53,9 +53,11 @@ class UserDetailsUpdateTest {
             .given(model)
             .whenEvent(Initial(id))
             .then(
-                assertThatNext(
+                assertThatNext<UserDetailModel, UserDetailEffect>(
                     hasModel(model.copy(isLoading = true)),
-                    hasEffects(LoadUserLocally(id) as UserDetailEffect)
+                    hasEffects(
+                        LoadUserLocally(id)
+                    )
                 )
             )
     }
@@ -69,7 +71,7 @@ class UserDetailsUpdateTest {
             .given(model)
             .whenEvent(UserLoaded(user))
             .then(
-                assertThatNext(
+                assertThatNext<UserDetailModel, UserDetailEffect>(
                     hasModel(model.copy(isLoading = false, user = user)),
                     hasNoEffects()
                 )
@@ -84,7 +86,7 @@ class UserDetailsUpdateTest {
             .given(model)
             .whenEvent(ErrorLoadingUSer)
             .then(
-                assertThatNext(
+                assertThatNext<UserDetailModel, UserDetailEffect>(
                     hasModel(model.copy(error = true, isLoading = false)),
                     hasNoEffects()
                 )
